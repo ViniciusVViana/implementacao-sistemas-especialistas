@@ -2,15 +2,14 @@
     Da pra mudar esse nome com certeza (resultado), coisa feia do k7
 */
 
-resultado("É possível que haja um problema como: quedas de tensão em logas distâncias, transformadores ineficientes ou Efeito Joule (perde por aquecimento)") :-
+diagnostico_consumo("É possível que haja um problema como: quedas de tensão em longas distâncias, transformadores ineficientes ou Efeito Joule (perda por aquecimento)") :-
     avaliacao(tecnico).
 
-resultado("É possível que haja problemas como: ligação clandestina, manipulação de medidores, desvio de energia ou houve um erro na leitura do consumo") :-
+diagnostico_consumo("É possível que haja problemas como: ligação clandestina, manipulação de medidores, desvio de energia ou houve um erro na leitura do consumo") :-
     avaliacao(nao_tecnico).
 
-resultado("Esta tudo certo com o seu consumo de energia!") :-
+diagnostico_consumo("Está tudo certo com o seu consumo de energia!") :-
     avaliacao(regular).
-
 
 /*
     Não sei mexer com Prolog, mas acho que ta certo
@@ -197,3 +196,41 @@ avaliacao(nao_tecnico) :-
     consumo_medio(alto),
     comsumo_estimado(medio),
     historico(sim).
+
+/*
+    Regras de interação com o usuário
+*/
+
+consumo_atual(CA) :-
+    repeat,
+    write('Qual o seu consumo atual? (baixo, medio, alto): '),
+    read(CA),
+    member(CA, [baixo, medio, alto]), !.
+
+consumo_medio(CM) :-
+    repeat,
+    write('Qual o seu consumo médio? (baixo, medio, alto): '),
+    read(CM),
+    member(CM, [baixo, medio, alto]), !.
+
+consumo_estimado(CE) :-
+    repeat,
+    write('Qual o seu consumo estimado? (baixo, medio, alto): '),
+    read(CE),
+    member(CE, [baixo, medio, alto]), !.
+
+historico(H) :-
+    repeat,
+    write('Houve algum problema com o seu consumo de energia? (sim, nao): '),
+    read(H),
+    member(H, [sim, nao]), !.
+
+% Execução principal
+main :-
+    retractall(fato(_, _)),
+    consumo_atual(CA),
+    consumo_medio(CM),
+    consumo_estimado(CE),
+    historico(H),
+    diagnostico_consumo(Resultado),
+    write('Resposta: '), write(Resultado), nl.
