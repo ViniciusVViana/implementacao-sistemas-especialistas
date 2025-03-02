@@ -1,96 +1,109 @@
+/*
+    Da pra mudar esse nome com certeza (resultado), coisa feia do k7
+*/
+
+resultado("É possível que haja um problema como: quedas de tensão em logas distâncias, transformadores ineficientes ou Efeito Joule (perde por aquecimento)") :-
+    avaliacao(tecnico).
+
+resultado("É possível que haja problemas como: ligação clandestina, manipulação de medidores, desvio de energia ou houve um erro na leitura do consumo") :-
+    avaliacao(nao_tecnico).
+
+resultado("Esta tudo certo com o seu consumo de energia!") :-
+    avaliacao(regular).
+
 
 /*
-    Não sei mexer com Prolog
+    Não sei mexer com Prolog, mas acho que ta certo
 */
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(alto),
     consumo_medio(baixo),
     comsumo_estimado(baixo).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(alto),
     consumo_medio(baixo),
     comsumo_estimado(medio).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(alto),
     consumo_medio(baixo),
     comsumo_estimado(alto).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(alto),
     consumo_medio(medio),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(alto),
     consumo_medio(medio),
     comsumo_estimado(medio).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(alto),
     consumo_medio(medio),
     comsumo_estimado(alto).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(alto),
     consumo_medio(alto),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(alto),
     consumo_medio(alto),
     comsumo_estimado(medio).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(alto),
     consumo_medio(alto),
     comsumo_estimado(alto).
 
 ---
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(baixo),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(baixo),
     comsumo_estimado(medio).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(medio),
     consumo_medio(baixo),
     comsumo_estimado(alto).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(medio),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(medio),
     comsumo_estimado(medio).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(medio),
     comsumo_estimado(alto),
     historico(nao).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(alto),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(medio),
     consumo_medio(alto),
     comsumo_estimado(medio).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(medio),
     consumo_medio(alto),
     comsumo_estimado(alto),
@@ -98,88 +111,88 @@ avalicao(tecnico) :-
 
 ---
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(baixo),
     consumo_medio(baixo),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(baixo),
     consumo_medio(baixo),
     comsumo_estimado(medio).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(baixo),
     consumo_medio(baixo),
     comsumo_estimado(alto).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(baixo),
     consumo_medio(medio),
     comsumo_estimado(baixo).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(baixo),
     consumo_medio(medio),
     comsumo_estimado(medio),
     historico(nao).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(baixo),
     consumo_medio(medio),
     comsumo_estimado(alto),
     historico(nao).
 
-avalicao(regular) :-
+avaliacao(regular) :-
     consumo_atual(baixo),
     consumo_medio(alto),
     comsumo_estimado(baixo),
     historico(nao).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(baixo),
     consumo_medio(alto),
     comsumo_estimado(medio),
     historico(nao).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(baixo),
     consumo_medio(alto),
     comsumo_estimado(alto).
 
 ---
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(medio),
     consumo_medio(medio),
     comsumo_estimado(alto),
     historico(sim).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(medio),
     consumo_medio(alto),
     comsumo_estimado(alto),
     historico(sim).
 
-avalicao(tecnico) :-
+avaliacao(tecnico) :-
     consumo_atual(baixo),
     consumo_medio(medio),
     comsumo_estimado(medio),
     historico(sim).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(baixo),
     consumo_medio(medio),
     comsumo_estimado(alto),
     historico(sim).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(baixo),
     consumo_medio(alto),
     comsumo_estimado(baixo),
     historico(sim).
 
-avalicao(nao_tecnico) :-
+avaliacao(nao_tecnico) :-
     consumo_atual(baixo),
     consumo_medio(alto),
     comsumo_estimado(medio),
