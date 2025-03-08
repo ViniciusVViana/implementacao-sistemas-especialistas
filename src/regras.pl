@@ -1,185 +1,91 @@
-/*
-    Regras de classificação diretamente baseadas na tabela fornecida
-*/ 
-avaliacao(tecnico) :-
-    consumo_atual(alto),
-    consumo_medio(baixo),
-    consumo_estimado(baixo).
+% REGRAS DE CLASSIFICAÇÃO:
 
-avaliacao(tecnico) :-
-    consumo_atual(alto),
-    consumo_medio(baixo),
-    consumo_estimado(medio).
+% 1) Situação normal: Consumo_atual está dentro de ±10% do Consumo_medio
+consumo_normal :-
+    consumo_atual(Consumo),
+    compute_consumo_medio(Medio),
+    Lower is Medio * 0.9,
+    Upper is Medio * 1.1,
+    Consumo >= Lower, Consumo =< Upper.
 
-avaliacao(regular) :-
-    consumo_atual(alto),
-    consumo_medio(baixo),
-    consumo_estimado(alto).
+% 2) Possível perda técnica: se (Consumo_atual / Consumo_estimado) > 1.035
+possivel_perda_tecnica :-
+    consumo_atual(Consumo),
+    compute_consumo_estimado(Estimado),
+    crescimento_vegetativo(Crescimento),
+    Ratio is Consumo / Estimado,
+    Ratio > Crescimento.
 
-avaliacao(tecnico) :-
-    consumo_atual(alto),
-    consumo_medio(medio),
-    consumo_estimado(baixo).
+% Sub-regras para perda técnica:
 
-avaliacao(regular) :-
-    consumo_atual(alto),
-    consumo_medio(medio),
-    consumo_estimado(medio).
+% a) Perda técnica por subtensão: se a tensão for precária ou crítica (inferior)
+%    e a corrente medida > 1.2 * Corrente_media_atual
+perda_tecnica_subtensao :-
+    possivel_perda_tecnica,
+    tensao_medida(V),
+    ( tensao_status(V, precaria_inferior) ; tensao_status(V, critica_inferior) ),
+    corrente_medida(CM),
+    compute_corrente_media_atual(CM_media),
+    CM > 1.2 * CM_media.
 
-avaliacao(regular) :-
-    consumo_atual(alto),
-    consumo_medio(medio),
-    consumo_estimado(alto).
+% b) Perda técnica por sobretensão: se a tensão for precária ou crítica (superior)
+%    e a corrente medida < 0.8 * Corrente_media_atual
+perda_tecnica_sobretensao :-
+    possivel_perda_tecnica,
+    tensao_medida(V),
+    ( tensao_status(V, precaria_superior) ; tensao_status(V, critica_superior) ),
+    corrente_medida(CM),
+    compute_corrente_media_atual(CM_media),
+    CM < 0.8 * CM_media.
 
-avaliacao(tecnico) :-
-    consumo_atual(alto),
-    consumo_medio(alto),
-    consumo_estimado(baixo).
+% c) Perda técnica por efeito Joule: se a tensão for adequada e a corrente medida > 1.2 * Corrente_media_atual
+perda_tecnica_joule :-
+    possivel_perda_tecnica,
+    tensao_medida(V),
+    tensao_status(V, adequada),
+    corrente_medida(CM),
+    compute_corrente_media_atual(CM_media),
+    CM > 1.2 * CM_media.
 
-avaliacao(regular) :-
-    consumo_atual(alto),
-    consumo_medio(alto),
-    consumo_estimado(medio).
+% 3) Possível perda não-técnica: se o consumo estiver dentro de ±10% do consumo_medio
+possivel_perda_nao_tecnica :-
+    consumo_normal.
 
-avaliacao(regular) :-
-    consumo_atual(alto),
-    consumo_medio(alto),
-    consumo_estimado(alto).
+% Sub-regras para perda não-técnica:
 
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(baixo),
-    consumo_estimado(baixo).
+% a) Possível erro de medição de corrente: se a corrente medida desviar ±20% da corrente média
+erro_medicao_corrente :-
+    possivel_perda_nao_tecnica,
+    corrente_medida(CM),
+    compute_corrente_media_atual(CM_media),
+    Lower is CM_media * 0.8,
+    Upper is CM_media * 1.2,
+    (CM < Lower ; CM > Upper).
 
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(baixo),
-    consumo_estimado(medio).
+% b) Possível erro de medição de tensão: se a tensão medida for classificada como crítica
+erro_medicao_tensao :-
+    possivel_perda_nao_tecnica,
+    tensao_medida(V),
+    tensao_status(V, critica_inferior) ; tensao_status(V, critica_superior).
 
-avaliacao(nao_tecnico) :-
-    consumo_atual(medio),
-    consumo_medio(baixo),
-    consumo_estimado(alto).
+% c) Possível desvio de energia: se Consumo_atual for inferior a 20% do Consumo_medio
+possivel_desvio_energia :-
+    possivel_perda_nao_tecnica,
+    consumo_atual(Consumo),
+    compute_consumo_medio(Medio),
+    Consumo < 0.2 * Medio.
 
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(medio),
-    consumo_estimado(baixo).
-
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(medio),
-    consumo_estimado(medio).
-
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(medio),
-    consumo_estimado(alto),
-    historico(nao).
-
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(alto),
-    consumo_estimado(baixo).
-
-avaliacao(regular) :-
-    consumo_atual(medio),
-    consumo_medio(alto),
-    consumo_estimado(medio).
-
-avaliacao(tecnico) :-
-    consumo_atual(medio),
-    consumo_medio(alto),
-    consumo_estimado(alto),
-    historico(nao).
-
-avaliacao(regular) :-
-    consumo_atual(baixo),
-    consumo_medio(baixo),
-    consumo_estimado(baixo).
-
-avaliacao(regular) :-
-    consumo_atual(baixo),
-    consumo_medio(baixo),
-    consumo_estimado(medio).
-
-avaliacao(tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(baixo),
-    consumo_estimado(alto).
-
-avaliacao(regular) :-
-    consumo_atual(baixo),
-    consumo_medio(medio),
-    consumo_estimado(baixo).
-
-avaliacao(regular) :-
-    consumo_atual(baixo),
-    consumo_medio(medio),
-    consumo_estimado(medio),
-    historico(nao).
-
-avaliacao(tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(medio),
-    consumo_estimado(alto),
-    historico(nao).
-
-avaliacao(regular) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(baixo),
-    historico(nao).
-
-avaliacao(tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(medio),
-    historico(nao).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(alto).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(medio),
-    consumo_medio(medio),
-    consumo_estimado(alto),
-    historico(sim).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(medio),
-    consumo_medio(alto),
-    consumo_estimado(alto),
-    historico(sim).
-
-avaliacao(tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(medio),
-    consumo_estimado(medio),
-    historico(sim).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(medio),
-    consumo_estimado(alto),
-    historico(sim).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(baixo),
-    historico(sim).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(medio),
-    historico(sim).
-
-avaliacao(nao_tecnico) :-
-    consumo_atual(baixo),
-    consumo_medio(alto),
-    consumo_estimado(medio),
-    historico(sim).
+% d) Possível fraude na medição: se a tensão estiver adequada e a corrente dentro de ±20%
+%    mas o consumo for inferior a 20% do consumo_medio
+possivel_fraude_medicao :-
+    possivel_perda_nao_tecnica,
+    tensao_medida(V),
+    tensao_status(V, adequada),
+    corrente_medida(CM),
+    compute_corrente_media_atual(CM_media),
+    Lower is CM_media * 0.8,
+    Upper is CM_media * 1.2,
+    CM >= Lower, CM =< Upper,
+    consumo_atual(Consumo),
+    compute_consumo_medio(Medio),
+    Consumo < 0.2 * Medio.
