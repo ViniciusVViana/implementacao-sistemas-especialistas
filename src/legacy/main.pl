@@ -33,13 +33,11 @@ set_dados(Atual, Medio, Estimado, Historico) :-
     assertz(consumo_estimado(Estimado)),
     assertz(historico(Historico)).
 
-
 /*
     Pergunta um valor por vez ao usuário
 */
 perguntar_dado(Pergunta, Valor) :-
     write(Pergunta), read(Valor).
-
 
 /*
     Executa a opção escolhida
@@ -50,7 +48,6 @@ executar_opcao(1) :-
     perguntar_dado('Digite o consumo medio do cliente (baixo/medio/alto): ', Medio),
     perguntar_dado('Digite o consumo estimado do cliente (baixo/medio/alto): ', Estimado),
     perguntar_dado('O cliente possui historico de infracao? (sim/nao): ', Historico), nl,
-    
     
     /*
         Inserir os dados no sistema

@@ -1,0 +1,47 @@
+Consumo_atual: 230 kWh
+Tensao_medida: 105 V           
+Corrente_medida: 4 A        
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnóstico: Perda técnica por subtensao na UC (problema de transformacao ou quedas de tensao na rede)."
+resultado obtido: "Diagnóstico: Perda técnica por subtensao na UC (problema de transformacao ou quedas de tensao na rede)."
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 137 V
+Corrente_medida: 2 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnóstico: Perda técnica por sobretensao na UC (problema de transformacao ou sobretensao na rede)."
+resultado obtido: "Diagnóstico: Perda técnica por sobretensao na UC (problema de transformacao ou sobretensao na rede)."
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
+resultado obtido: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
+
+Consumo_atual: 320 kWh
+Tensao_medida: 125 V
+Corrente_medida: 5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Possivel erro de medicao de corrente."
+resultado obtido: "Diagnostico: Possivel erro de medicao de corrente."
+
+Consumo_atual: 320 kWh
+Tensao_medida: 108 V
+Corrente_medida: 3.8 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Possivel erro de medicao de tensao."
+
+Consumo_atual: 330 kWh
+Tensao_medida: 100 V
+Corrente_medida: 7 A
+Histórico: 290 kWh e 315 kWh
+
+resultado esperado: "Diagnostico: Possivel erro de medicao de corrente."
+resultado obtido: "Diagnostico: Possivel erro de medicao de corrente."
