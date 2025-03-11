@@ -8,6 +8,13 @@ consumo_normal :-
     Upper is Medio * 1.1,
     Consumo >= Lower, Consumo =< Upper.
 
+consumo_anormal :-
+    consumo_atual(Consumo),
+    compute_consumo_medio(Medio),
+    Lower is Medio * 0.9,
+    Upper is Medio * 1.1,
+    Consumo < Lower, Consumo > Upper.
+
 % 2) Possível perda técnica: se (Consumo_atual / Consumo_estimado) > 1.035
 possivel_perda_tecnica :-
     consumo_atual(Consumo),
@@ -49,7 +56,7 @@ perda_tecnica_joule :-
 
 % 3) Possível perda não-técnica: se o consumo estiver dentro de ±10% do consumo_medio
 possivel_perda_nao_tecnica :-
-    consumo_normal.
+    consumo_anormal.
 
 % Sub-regras para perda não-técnica:
 
@@ -60,7 +67,7 @@ erro_medicao_corrente :-
     compute_corrente_media_atual(CM_media),
     Lower is CM_media * 0.8,
     Upper is CM_media * 1.2,
-    (CM < Lower ; CM > Upper).
+    (CM <= Lower ; CM => Upper).
 
 % b) Possível erro de medição de tensão: se a tensão medida for classificada como crítica
 erro_medicao_tensao :-
@@ -73,7 +80,7 @@ possivel_desvio_energia :-
     possivel_perda_nao_tecnica,
     consumo_atual(Consumo),
     compute_consumo_medio(Medio),
-    Consumo < 0.2 * Medio.
+    Consumo < 0.8 * Medio.
 
 % d) Possível fraude na medição: se a tensão estiver adequada e a corrente dentro de ±20%
 %    mas o consumo for inferior a 20% do consumo_medio

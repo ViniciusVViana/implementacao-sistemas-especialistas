@@ -21,7 +21,7 @@ Histórico: 200 kWh e 210 kWh
 
 resultado esperado: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
 resultado obtido: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
-
+-----------------------------
 Consumo_atual: 320 kWh
 Tensao_medida: 125 V
 Corrente_medida: 5 A
@@ -29,7 +29,7 @@ Histórico: 300 kWh e 320 kWh
 
 resultado esperado: "Diagnostico: Possivel erro de medicao de corrente."
 resultado obtido: "Diagnostico: Possivel erro de medicao de corrente."
-
+-----------------------------
 Consumo_atual: 320 kWh
 Tensao_medida: 108 V
 Corrente_medida: 3.8 A
@@ -37,7 +37,7 @@ Histórico: 300 kWh e 320 kWh
 
 resultado esperado: "Diagnostico: Possivel erro de medicao de tensao."
 resultado obtido: "Diagnostico: Possivel erro de medicao de tensao."
-
+-----------------------------
 Consumo_atual: 330 kWh
 Tensao_medida: 100 V
 Corrente_medida: 7 A
@@ -45,3 +45,11 @@ Histórico: 290 kWh e 315 kWh
 
 resultado esperado: "Diagnostico: Possivel erro de medicao de corrente."
 resultado obtido: "Diagnostico: Possivel erro de medicao de corrente."
+-----------------------------
+
+TODO
+
+Consumo_atual: 150 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 200 kWh e 210 kWh

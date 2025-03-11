@@ -66,13 +66,13 @@ avaliar :-
          )
     ; possivel_perda_nao_tecnica ->
          ( erro_medicao_corrente ->
-               write('Diagnostico: Possivel erro de medicao de corrente.'), nl
+               write('Diagnostico: Perda não técnica = Possivel erro de medicao de corrente.'), nl
          ; erro_medicao_tensao ->
-               write('Diagnostico: Possivel erro de medicao de tensao.'), nl
+               write('Diagnostico: Perda não técnica = Possivel erro de medicao de tensao.'), nl
          ; possivel_desvio_energia ->
-               write('Diagnostico: Possivel desvio de energia (by-pass do medidor).'), nl
+               write('Diagnostico: Perda não técnica = Possivel desvio de energia (by-pass do medidor).'), nl
          ; possivel_fraude_medicao ->
-               write('Diagnostico: Possivel fraude na medicao.'), nl
+               write('Diagnostico: Perda não técnica = Possivel fraude na medicao.'), nl
          ; write('Diagnostico: Consumo normal sem indicios de perda nao-tecnica.'), nl
          )
     ; write('Situacao regular (de acordo com as regras definidas.)'), nl.
