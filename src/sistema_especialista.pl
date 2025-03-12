@@ -3,53 +3,6 @@
 %% Sistema Especialista para Análise de Perdas em UC %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Declaração de predicados dinâmicos para armazenar os dados de entrada
-:- dynamic(consumo_atual/1).
-:- dynamic(tensao_medida/1).
-:- dynamic(corrente_medida/1).
-:- dynamic(consumo_hist/2).
-
-% Dados internos fixos (fatos do sistema)
-crescimento_vegetativo(1.035).    % 3,5% ao ano
-tensao_atendimento(127).         % Tensão nominal de atendimento (V) para baixa tensão
-fator_potencia(0.92).            % Fator de potência normatizado
-
-% Classificação da tensão medida (para 127V)
-% Faixas:
-%   Adequada: 117 ≤ V ≤ 133
-%   Precária: 110 ≤ V < 117 (inferior) ou 133 < V ≤ 135 (superior)
-%   Crítica: V < 110 (inferior) ou V > 135 (superior)
-
-tensao_status(V, adequada) :- V >= 117, V =< 133.
-tensao_status(V, precaria_inferior) :- V >= 110, V < 117.
-tensao_status(V, precaria_superior) :- V > 133, V =< 135.
-tensao_status(V, critica_inferior) :- V < 110.
-tensao_status(V, critica_superior) :- V > 135.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Cálculos Processados
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Consumo_medio: média dos dois consumos históricos (ano-2 e ano-1)
-compute_consumo_medio(Medio) :-
-    consumo_hist(ConsumoAno2, ConsumoAno1),
-    Medio is (ConsumoAno2 + ConsumoAno1) / 2.
-
-% Consumo_estimado: usando regressão linear simples (reta definida por dois pontos)
-% Para dois pontos, a inclinação é (ConsumoAno1 - ConsumoAno2) e a estimativa para o mês atual:
-% Estimado = ConsumoAno1 + (ConsumoAno1 - ConsumoAno2)
-compute_consumo_estimado(Estimado) :-
-    consumo_hist(ConsumoAno2, ConsumoAno1),
-    Estimado is 2 * ConsumoAno1 - ConsumoAno2.
-
-% Corrente_media_atual:
-% Fórmula: ((Consumo_atual * 1000 / 30 dias) / 24 horas) / (Tensão_atendimento * Fator_Potencia)
-compute_corrente_media_atual(CorrenteMedia) :-
-    consumo_atual(Consumo),
-    tensao_atendimento(TA),
-    fator_potencia(FP),
-    CorrenteMedia is ((Consumo * 1000 / 30) / 24) / (TA * FP).
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Predicado de Avaliação
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,7 +28,7 @@ avaliar :-
                write('Diagnostico: Perda não técnica = Possivel fraude na medicao.'), nl
          ; write('Diagnostico: Consumo normal sem indicios de perda nao-tecnica.'), nl
          )
-    ; write('Situacao regular (de acordo com as regras definidas.)'), nl.
+    ; write('Situacao regular (de acordo com as regras definidas).'), nl.
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Interface Interativa
