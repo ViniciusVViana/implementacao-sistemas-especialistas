@@ -53,3 +53,270 @@ Consumo_atual: 150 kWh
 Tensao_medida: 125 V
 Corrente_medida: 2 A
 Histórico: 200 kWh e 210 kWh
+resultado obtido: "Diagnostico: Perda não técnica = Possivel erro de medicao de corrente."
+
+-----------------------------
+
+Caso de testes 2.0
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+resultado obtido: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
+
+Consumo medio calculado: 205
+Consumo estimado calculado: 220
+Corrente media atual calculada: 2.7340332458442695
+
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 108 V
+Corrente_medida: 2.8 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Possivel perda tecnica, mas sem indicacao especifica."
+
+Consumo medio calculado: 205
+Consumo estimado calculado: 220
+Corrente media atual calculada: 2.7340332458442695
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+resultado obtido: "ERRO"
+
+Consumo medio calculado: 310
+Consumo estimado calculado: 340
+Corrente media atual calculada: 0.4754840427555251
+
+ERROR: Arguments are not sufficiently instantiated
+ERROR: In:
+ERROR:   [20] _11482>_11484
+ERROR:   [17] erro_medicao_corrente at /home/arthur_angelo/IA/sistemas-especialistas/src/regras.pl:123
+ERROR:   [16] avaliar at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:18
+ERROR:   [15] menu at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:57
+ERROR:    [9] toplevel_call(user:user:start) at /usr/lib/swi-prolog/boot/toplevel.pl:1158
+ERROR:
+ERROR: Note: some frames are missing due to last-call optimization.
+ERROR: Re-run your program in debug mode (:- debug.) to get more detail.
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 0.5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+resultado obtido: "ERRO"
+
+Consumo medio calculado: 310
+Consumo estimado calculado: 340
+Corrente media atual calculada: 0.4754840427555251
+
+ERROR: Arguments are not sufficiently instantiated
+ERROR: In:
+ERROR:   [16] _2070>_2072
+ERROR:   [13] erro_medicao_corrente at /home/arthur_angelo/IA/sistemas-especialistas/src/regras.pl:123
+ERROR:   [12] avaliar at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:18
+ERROR:   [11] menu at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:57
+ERROR:    [9] toplevel_call(user:user:start) at /usr/lib/swi-prolog/boot/toplevel.pl:1158
+ERROR:
+ERROR: Note: some frames are missing due to last-call optimization.
+ERROR: Re-run your program in debug mode (:- debug.) to get more detail.
+
+-----------------------------
+
+Caso de testes 3.0
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+resultado obtido: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
+
+Consumo medio calculado: 205
+Consumo estimado calculado: 220
+Corrente media atual calculada: 2.7340332458442695
+
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 108 V
+Corrente_medida: 2.8 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Possivel perda tecnica, mas sem indicacao especifica."
+
+Consumo medio calculado: 205
+Consumo estimado calculado: 220
+Corrente media atual calculada: 2.7340332458442695
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+
+Consumo medio calculado: 310
+Consumo estimado calculado: 340
+Corrente media atual calculada: 0.4754840427555251
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 0.5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+resultado obtido: "ERRO"
+
+Consumo medio calculado: 310
+Consumo estimado calculado: 340
+Corrente media atual calculada: 0.4754840427555251
+
+ERROR: Arguments are not sufficiently instantiated
+ERROR: In:
+ERROR:   [20] _9730>_9732
+ERROR:   [17] erro_medicao_corrente at /home/arthur_angelo/IA/sistemas-especialistas/src/regras.pl:123
+ERROR:   [16] avaliar at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:18
+ERROR:   [15] menu at /home/arthur_angelo/IA/sistemas-especialistas/src/sistema_especialista.pl:57
+ERROR:    [9] toplevel_call(user:user:start) at /usr/lib/swi-prolog/boot/toplevel.pl:1158
+ERROR:
+ERROR: Note: some frames are missing due to last-call optimization.
+ERROR: Re-run your program in debug mode (:- debug.) to get more detail.
+
+-----------------------------
+
+Caso de testes 4.0
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+resultado obtido: "Diagnóstico: Perda tecnica por efeito Joule (sobrecarga)."
+
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 108 V
+Corrente_medida: 2.8 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Possivel perda tecnica, mas sem indicacao especifica."
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+
+Consumo medio calculado: 310
+Consumo estimado calculado: 340
+Corrente media atual calculada: 0.4754840427555251
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 0.5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+
+-----------------------------
+
+Caso de testes 5.0
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 108 V
+Corrente_medida: 2.8 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 0.5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+
+-----------------------------
+
+Caso de testes 6.0
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 125 V
+Corrente_medida: 4 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente."
+
+-----------------------------
+Consumo_atual: 230 kWh
+Tensao_medida: 108 V
+Corrente_medida: 2.8 A
+Histórico: 200 kWh e 210 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao."
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 2 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor)."
+
+-----------------------------
+Consumo_atual: 40 kWh
+Tensao_medida: 125 V
+Corrente_medida: 0.5 A
+Histórico: 300 kWh e 320 kWh
+
+resultado esperado: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+resultado obtido: "Diagnostico: Perda nao tecnica, possivel fraude na medicao."
+
+

@@ -1,38 +1,34 @@
 :- consult('regras.pl').
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Sistema Especialista para Análise de Perdas em UC %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sistema Especialista para Análise de Perdas em UC 
+
 %% Predicado de Avaliação
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-avaliar :-
-     possivel_perda_tecnica ->
-         ( perda_tecnica_subtensao ->
-               write('Diagnóstico: Perda técnica por subtensao na UC (problema de transformacao ou quedas de tensao na rede).'), nl
-         ; perda_tecnica_sobretensao ->
-               write('Diagnóstico: Perda técnica por sobretensao na UC (problema de transformacao ou sobretensao na rede).'), nl
-         ; perda_tecnica_joule ->
-               write('Diagnóstico: Perda tecnica por efeito Joule (sobrecarga).'), nl
-         ; write('Diagnostico: Possivel perda tecnica, mas sem indicacao especifica.'), nl
-         )
-    ; possivel_perda_nao_tecnica ->
-         ( erro_medicao_corrente ->
-               write('Diagnostico: Perda não técnica = Possivel erro de medicao de corrente.'), nl
-         ; erro_medicao_tensao ->
-               write('Diagnostico: Perda não técnica = Possivel erro de medicao de tensao.'), nl
-         ; possivel_desvio_energia ->
-               write('Diagnostico: Perda não técnica = Possivel desvio de energia (by-pass do medidor).'), nl
-         ; possivel_fraude_medicao ->
-               write('Diagnostico: Perda não técnica = Possivel fraude na medicao.'), nl
-         ; write('Diagnostico: Consumo normal sem indicios de perda nao-tecnica.'), nl
-         )
+avaliar :- %%% (invertida a ordem de avaliação)
+    possivel_perda_nao_tecnica ->
+       ( possivel_fraude_medicao ->
+             write('Diagnostico: Perda nao tecnica, possivel fraude na medicao.'), nl
+       ; possivel_desvio_energia ->
+             write('Diagnostico: Perda nao tecnica, possivel desvio de energia (by-pass do medidor).'), nl
+       ; erro_medicao_corrente ->
+             write('Diagnostico: Perda nao tecnica, possivel erro de medicao de corrente.'), nl
+       ; erro_medicao_tensao ->
+             write('Diagnostico: Perda nao tecnica, possivel erro de medicao de tensao.'), nl
+       ; write('Diagnostico: Consumo normal sem indicios de perda nao-tecnica.'), nl
+       )
+    ; possivel_perda_tecnica ->
+       ( perda_tecnica_subtensao ->
+             write('Diagnostico: Perda tecnica por subtensao na UC (problema de transformacao ou quedas de tensao na rede).'), nl
+       ; perda_tecnica_sobretensao ->
+             write('Diagnostico: Perda tecnica por sobretensao na UC (problema de transformacao ou sobretensao na rede).'), nl
+       ; perda_tecnica_joule ->
+             write('Diagnostico: Perda tecnica por efeito Joule (sobrecarga).'), nl
+       ; write('Diagnostico: Possivel perda tecnica, mas sem indicacao especifica.'), nl
+       )
     ; write('Situacao regular (de acordo com as regras definidas).'), nl.
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 %% Interface Interativa
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 menu :-
     write('--- Sistema Especialista de Perdas ---'), nl,
