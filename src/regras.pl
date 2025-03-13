@@ -1,5 +1,4 @@
 % Declaração de predicados dinâmicos para armazenar os dados de entrada
-% Declaração de predicados dinâmicos para armazenar os dados de entrada
 :- dynamic(consumo_atual/1).
 :- dynamic(tensao_medida/1).
 :- dynamic(corrente_medida/1).
